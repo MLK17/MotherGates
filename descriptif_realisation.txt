@@ -1,0 +1,195 @@
+# DESCRIPTIF DE RÉALISATION - INTERFACE ADMINISTRATEUR MOTHERGATES
+
+## 1. PRÉSENTATION DU PROJET
+---------------------------
+### 1.1 Contexte
+Cette application desktop constitue l'interface administrateur du site web "SlayerGates", une plateforme d'organisation de tournois e-sport interacadémique. L'écosystème complet comprend :
+
+• Le site web SlayerGates (front-end public)
+  - Interface utilisateur pour les étudiants et équipes
+  - Inscription aux tournois
+  - Consultation des matchs et résultats
+
+• L'interface administrateur MotherGates (présent projet)
+  - Application desktop pour la gestion administrative
+  - Contrôle total de la plateforme
+  - Accès sécurisé aux fonctionnalités d'administration
+
+• Une API backend commune
+  - Gestion des requêtes
+  - Authentification et autorisation
+  - Communication avec la base de données
+
+Les deux applications (site web et interface admin) partagent une base de données PostgreSQL commune hébergée sur Neon.tech, garantissant une cohérence parfaite des données.
+
+### 1.2 Structure de la Base de Données
+L'application s'appuie sur une base de données PostgreSQL relationnelle avec les tables suivantes :
+
+#### • User (Utilisateurs)
+- Informations de base : id, pseudo, email, mot de passe
+- Gestion des rôles : role (user par défaut)
+- Profil : avatar
+- Relations :
+  * Créateur de tournois
+  * Capitaine d'équipes
+  * Membre d'équipes
+  * Demandes d'adhésion
+
+#### • Tournament (Tournois)
+- Informations générales : titre, jeu, description
+- Configuration : format, max_players, players_per_team
+- Localisation : is_online, location
+- Dates : start_date, end_date
+- État : status (upcoming par défaut)
+- Relations :
+  * Créateur (User)
+  * Équipes participantes
+  * Matchs
+
+#### • School (Écoles)
+- Informations : id, nom (unique), ville
+- Relations :
+  * Équipes affiliées
+
+#### • Team (Équipes)
+- Informations : nom, description, logo
+- Organisation : school_id, captain_id
+- Relations :
+  * École d'appartenance
+  * Capitaine (User)
+  * Membres
+  * Tournois
+  * Matchs
+  * Classement
+
+#### • Match (Matchs)
+- Configuration : tournament_id, round
+- Équipes : team1_id, team2_id
+- Résultats : winner_id, score
+- État : status (pending par défaut)
+- Planification : scheduled_time, completed_time
+
+#### • TeamMember (Membres d'équipe)
+- Relations : team_id, user_id
+- Rôle dans l'équipe : role (member par défaut)
+- Suivi : joined_at
+
+#### • TournamentTeam (Inscriptions aux tournois)
+- Relations : tournament_id, team_id
+- Participants : participating_players (IDs)
+- Suivi : registered_at
+
+#### • TeamJoinRequest (Demandes d'adhésion)
+- Relations : team_id, user_id
+- État : status (PENDING, APPROVED, REJECTED)
+- Suivi : created_at, updated_at
+
+#### • Leaderboard (Classements)
+- Relations : team_id (unique)
+- Statistiques : points, wins, losses
+- Suivi : created_at, updated_at
+
+Cette structure permet une gestion complète et cohérente des données entre le site web SlayerGates et l'interface administrateur MotherGates, avec un suivi précis des relations entre les différentes entités.
+
+### 1.3 Objectifs
+• Administration complète des tournois e-sport
+• Gestion des écoles et de leurs équipes
+• Supervision des utilisateurs et de leurs droits
+• Suivi en temps réel des matchs
+• Traçabilité des actions administratives
+• Sécurisation des accès et des données
+
+## 2. SPÉCIFICATIONS TECHNIQUES
+------------------------------
+### 2.1 Architecture
+• Pattern MVC (Model-View-Controller)
+  - Modèle : SQLAlchemy ORM
+  - Vue : PyQt6
+  - Contrôleur : Python core
+
+• Sécurité
+  - Authentification JWT
+  - Chiffrement des données sensibles
+  - Système de logs d'audit
+
+### 2.2 Technologies
+• Backend
+  - Python 3.10+
+  - SQLAlchemy 2.0.23
+  - python-jose 3.3.0
+  - cryptography 41.0.4
+
+• Frontend
+  - PyQt6 6.5.0
+  - reportlab 4.0.4
+  - pillow 10.0.0
+
+• Base de données
+  - PostgreSQL 15+
+  - Hébergement Neon.tech
+
+• Utilitaires
+  - loguru 0.7.2 (logging)
+  - pandas 2.1.1 (data processing)
+  - python-dotenv 1.0.0
+  - PyInstaller (packaging)
+
+## 3. FONCTIONNALITÉS
+--------------------
+### 3.1 Gestion des Tournois
+• Création et configuration
+• Modification des paramètres
+• Suivi en temps réel
+
+### 3.2 Gestion des Écoles
+• Ajout et suppression
+• Mise à jour des informations
+• Gestion des équipes associées
+
+### 3.3 Gestion des Équipes
+• Visualisation des équipes
+• Gestion des membres
+• Suppression d'équipes
+
+### 3.4 Gestion des Utilisateurs
+• Administration des comptes
+• Gestion des droits d'accès
+• Suppression de comptes
+
+### 3.5 Gestion des Matchs
+• Création de matchs
+• Mise à jour des scores
+• Modification des statuts
+
+### 3.6 Système de Logs
+• Traçabilité des actions
+• Historique des modifications
+• Audit de sécurité
+
+## 4. RESSOURCES REQUISES
+------------------------
+### 4.1 Matériel
+• Ordinateur compatible (Windows/Linux/MacOS)
+• Connexion Internet stable
+• Écran haute résolution (recommandé)
+
+### 4.2 Documentation
+• Documentation technique des bibliothèques
+• Guides de style et normes de codage
+• Documentation de sécurité
+
+## 5. SÉCURITÉ ET MAINTENANCE
+----------------------------
+### 5.1 Sécurité
+• Authentification sécurisée JWT
+• Chiffrement des données sensibles
+• Gestion fine des droits d'accès
+• Journalisation des actions sensibles
+
+### 5.2 Maintenance
+• Logs centralisés
+• Sauvegarde automatique des données
+• Monitoring des performances
+• Mises à jour de sécurité
+
+
