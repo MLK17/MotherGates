@@ -99,97 +99,96 @@ Cette structure permet une gestion complète et cohérente des données entre le
 • Traçabilité des actions administratives
 • Sécurisation des accès et des données
 
-## 2. SPÉCIFICATIONS TECHNIQUES
-------------------------------
-### 2.1 Architecture
-• Pattern MVC (Model-View-Controller)
-  - Modèle : SQLAlchemy ORM
-  - Vue : PyQt6
-  - Contrôleur : Python core
+## 2. ÉTAT D'AVANCEMENT
+----------------------
+### 2.1 Fonctionnalités Implémentées
 
-• Sécurité
-  - Authentification JWT
-  - Chiffrement des données sensibles
-  - Système de logs d'audit
+#### Gestion des Tournois
+✓ Création de tournois avec paramètres complets
+✓ Vue des inscriptions aux tournois
+✓ Suivi des places disponibles avec indicateur visuel
+✓ Suppression sécurisée des tournois
+✓ Validation des données de création
 
-### 2.2 Technologies
-• Backend
-  - Python 3.10+
-  - SQLAlchemy 2.0.23
-  - python-jose 3.3.0
-  - cryptography 41.0.4
+#### Gestion des Écoles
+✓ Interface de création d'écoles
+✓ Liste des écoles avec nom et ville
+✓ Suppression d'écoles (avec vérification des équipes)
+✓ Interface utilisateur intuitive
 
-• Frontend
-  - PyQt6 6.5.0
-  - reportlab 4.0.4
-  - pillow 10.0.0
+#### Gestion des Équipes
+✓ Vue des équipes par école
+✓ Gestion des membres d'équipe
+✓ Association école-équipe
+✓ Suivi des inscriptions aux tournois
 
-• Base de données
-  - PostgreSQL 15+
-  - Hébergement Neon.tech
+#### Système de Logs
+✓ Structure de base implémentée
+✓ Préparation pour le suivi des actions
 
-• Utilitaires
-  - loguru 0.7.2 (logging)
-  - pandas 2.1.1 (data processing)
-  - python-dotenv 1.0.0
-  - PyInstaller (packaging)
+#### Sécurité
+✓ Création d'administrateurs
+✓ Protection des données sensibles (.env)
+✓ Validation des entrées utilisateur
 
-## 3. FONCTIONNALITÉS
---------------------
-### 3.1 Gestion des Tournois
-• Création et configuration
-• Modification des paramètres
-• Suivi en temps réel
+### 2.2 Fonctionnalités en Cours
+• Gestion complète des matchs
+• Système de logs avancé
+• Gestion des utilisateurs standard
+• Interface de statistiques
 
-### 3.2 Gestion des Écoles
-• Ajout et suppression
-• Mise à jour des informations
-• Gestion des équipes associées
+### 2.3 Améliorations Prévues
+• Filtres avancés pour les tournois
+• Système de notifications
+• Export des données
+• Interface de reporting
 
-### 3.3 Gestion des Équipes
-• Visualisation des équipes
-• Gestion des membres
-• Suppression d'équipes
+## 3. ASPECTS TECHNIQUES
+-----------------------
+### 3.1 Technologies Utilisées
 
-### 3.4 Gestion des Utilisateurs
-• Administration des comptes
-• Gestion des droits d'accès
-• Suppression de comptes
+#### Backend
+• Python 3.10+
+• SQLAlchemy (ORM)
+• PostgreSQL 15+ (Neon.tech)
 
-### 3.5 Gestion des Matchs
-• Création de matchs
-• Mise à jour des scores
-• Modification des statuts
+#### Frontend (Desktop)
+• PyQt6
+• Qt Designer (interface graphique)
 
-### 3.6 Système de Logs
-• Traçabilité des actions
-• Historique des modifications
-• Audit de sécurité
+#### Sécurité
+• JWT pour l'authentification
+• Hashage des mots de passe
+• Variables d'environnement
 
-## 4. RESSOURCES REQUISES
-------------------------
-### 4.1 Matériel
+#### Outils de Développement
+• Git pour le versioning
+• GitHub pour l'hébergement
+• Python venv pour l'isolation
+
+### 3.2 Architecture
+• Architecture MVC adaptée
+• Services métier isolés
+• Interface modulaire (widgets)
+• Base de données relationnelle
+
+## 4. DÉPLOIEMENT
+----------------
+### 4.1 Prérequis Système
+• Python 3.10 ou supérieur
+• PostgreSQL 15+
 • Ordinateur compatible (Windows/Linux/MacOS)
 • Connexion Internet stable
 • Écran haute résolution (recommandé)
 
-### 4.2 Documentation
-• Documentation technique des bibliothèques
-• Guides de style et normes de codage
-• Documentation de sécurité
+### 4.2 Installation
+1. Clonage du dépôt GitHub
+2. Configuration de l'environnement virtuel
+3. Installation des dépendances
+4. Configuration des variables d'environnement
 
-## 5. SÉCURITÉ ET MAINTENANCE
-----------------------------
-### 5.1 Sécurité
-• Authentification sécurisée JWT
-• Chiffrement des données sensibles
-• Gestion fine des droits d'accès
-• Journalisation des actions sensibles
-
-### 5.2 Maintenance
-• Logs centralisés
-• Sauvegarde automatique des données
-• Monitoring des performances
-• Mises à jour de sécurité
-
-
+### 4.3 Maintenance
+• Logs automatiques des erreurs
+• Sauvegarde régulière des données
+• Mises à jour via Git
+• Support technique disponible
